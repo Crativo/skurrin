@@ -1,0 +1,14 @@
+<% include header %>
+
+<h1>Fuck Index</h1>
+<a href='/user' >This Guy</a>
+
+
+<% form_for("user", function(f){ %>
+    <%- f.label_for("username") %>
+    <%- f.text_field("username") %><br />
+
+    <%- f.submit() %><br />
+<% }) %>
+
+<% include footer %>
