@@ -5,8 +5,10 @@ process.env['MONGOLAB_URI'] = 'mongodb://champ:letmein@ds027769.mongolab.com:277
 
 // Module dependencies.
 var express = require('express');
+var fs = require('fs');
 var http = require('http');
 var path = require('path');
+// var path = require('passport');
 
 var app = express();
 
@@ -16,6 +18,7 @@ process.env.MONGOHQ_URL ||
 'mongodb://localhost/HelloMongoose';
 
 var helpers = require('express-helpers')(app);
+
 
 
 
@@ -49,6 +52,8 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+
+
 // Development Only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -56,18 +61,40 @@ if ('development' == app.get('env')) {
 
 
 /* Defining Routes */
+routes = require('./routes')(app);
 
-// General
-var routes  = require('./routes');
-app.get('/', routes.index);
 
-// User
-var user  = require('./routes/user');
-app.get('/user', user.index);
+// // User
+// var user  = require('./routes/user');
+// app.get('/user', user.index);
 
-// Blog
-var blog  = require('./routes/blog');
-app.get('/blog', blog.index);
+// // Blog
+// var blog  = require('./routes/blog');
+// app.get('/blog', blog.index);
+
+
+
+// Crawl through and find route files then load them as require().
+// var routes_path = __dirname + '/routes';
+// var walk = function(path) {
+//     fs.readdirSync(path).forEach(function(file) {
+//         var newPath = path + '/' + file;
+//         var stat = fs.statSync(newPath);
+        
+//         if (stat.isFile()) {
+//             if (/(.*)\.(js$|coffee$)/.test(file)) {
+//                 require(newPath);
+//             }
+        
+//         // We skip the app/routes/middlewares directory as it is meant to be
+//         // used and shared by routes as further middlewares and is not a 
+//         // route by itself
+//         } else if (stat.isDirectory() && file !== 'middlewares') {
+//             walk(newPath);
+//         }
+//     });
+// };
+// walk(routes_path);
 
 
 
