@@ -9,11 +9,11 @@ module.exports = function (app) {
 
     // set up the routes themselves
     app.get("/", function (req, res) {
-        res.render('index', { title: 'Fuck Index' });
+        res.render('index', { title: 'Site Index' });
     });
 
     app.get("/user", function (req, res) {
-        res.render('user', { title: 'Fuck User' });
+        res.render('user', { title: 'User Index' });
     });
 
 };
